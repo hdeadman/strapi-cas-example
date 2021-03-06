@@ -20,18 +20,20 @@ Use the `./check_prereqs.sh` script to see if everything is available.
 ```
 This will run the CAS Intializr locally which will be used create a CAS Overlay project with support for OIDC. 
 It will them proceed to build the CAS application using gradle, generate a certificate for the CAS server, and run the CAS server.
-CAS will be running with a default in-memory dummy login: casuser/Mellon
+CAS will be running with a default in-memory dummy login: `casuser/Mellon`
 The CAS "stub" repository will return a hard-coded e-mail address. 
 
-Normally CAS would be connected to LDAP or some other user repository but this is just testing the OIDC exchange with Strapi. 
+Normally CAS would be connected to LDAP or some other user repository but this is just testing the OIDC exchange with Strapi
+and Strapi only needs a user with an email address.
 
 CAS will be accessible after startup at `https://localhost:8443/cas` 
 
-CAS has lots of options for configuring attributes from lots of different sources and they can be specific to individual apps
+CAS has lots of options for configuring attributes from different sources and they can be specific to individual apps
 (called "services" in CAS). One of those sources could be a groovy script that returned attributes so a CAS admin should be 
 able to control which attribute names are passed to Strapi. 
 
-By default CAS returns attributes in an "attributes" map in the JSON. 
+By default CAS returns attributes in an "attributes" map in the JSON but this `run-cas.sh` script can be run with `FLAT` as the first argument 
+and CAS will return the attributes as top-level JSON attributes. 
 
 # Run Strapi
 ```
