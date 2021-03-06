@@ -29,10 +29,15 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JDK_CURRENT }}        
       - name: "Start CAS and Strapi"
         shell: "bash" 
         run: |
-          'run-cas.sh &'
+          './run-cas.sh &'
           'sleep 180'
-          'run-starpi.sh &'
+          './run-starpi.sh &'
           'sleep 180'
