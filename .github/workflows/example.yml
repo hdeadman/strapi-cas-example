@@ -23,6 +23,7 @@ jobs:
 ##########################################################################
 
   test:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
     continue-on-error: false
     strategy:
       fail-fast: false

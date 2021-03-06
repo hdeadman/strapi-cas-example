@@ -19,8 +19,8 @@ Use the `./check_prereqs.sh` script to see if everything is available.
 ./run-cas.sh
 ```
 This will run the CAS Intializr locally which will be used create a CAS Overlay project with support for OIDC. 
-It will them proceed to build the CAS application using gradle, generate a certificate for the CAS server, and run the CAS server.
-CAS will be running with a default in-memory dummy login: `casuser/Mellon`
+It will then proceed to build the CAS application using gradle, generate an SSL certificate for the CAS server, and run the CAS server.
+CAS will be running with a default in-memory dummy user repository with a single user with credentials: `casuser/Mellon`
 The CAS "stub" repository will return a hard-coded e-mail address. 
 
 Normally CAS would be connected to LDAP or some other user repository but this is just testing the OIDC exchange with Strapi
@@ -67,13 +67,13 @@ login to CAS, and see the JWT token that an app would send to strapi on subseque
 
 4. OIDC Happens
 
-5. See JWT 
+5. See JWT in browser
 
 6. Use JWT as the value for the `Authorization` HTTP header on subsequent requests to strapi that require authentication. 
 
 
 # Optional steps
-CAS returns attributes in a map called attributes by default. It can be run in "FLAT" mode using an option. 
+CAS returns attributes in a map called `attributes` by default. It can be run in `FLAT` mode using an option. 
 
 Here is what the attributes in the response body look like by default:
 ```
