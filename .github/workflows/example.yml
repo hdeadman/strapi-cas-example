@@ -37,7 +37,7 @@ jobs:
       - name: "Start CAS and Strapi"
         shell: "bash" 
         run: |
-          './run-cas.sh &'
-          'sleep 180'
-          './run-starpi.sh &'
-          'sleep 180'
+          ./run-cas.sh
+          sleep 180
+          ./run-starpi.sh 
+          sleep 180

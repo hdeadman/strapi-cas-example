@@ -39,6 +39,15 @@ fi
 
 # Run CAS server
 echo "Running CAS Server"
-java -jar build/libs/cas.war --server.ssl.key-store=thekeystore --cas.standalone.configuration-directory=./config --cas.service-registry.json.location=file:./services --cas.server.name=https://localhost:8443 --cas.server.prefix='${cas.server.name}/cas' --cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org $FLAT_ARG
+java -jar build/libs/cas.war --server.ssl.key-store=thekeystore --cas.standalone.configuration-directory=./config --cas.service-registry.json.location=file:./services --cas.server.name=https://localhost:8443 --cas.server.prefix='${cas.server.name}/cas' --cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org $FLAT_ARG &
+pid=$!
+
+echo "Waiting for CAS to start up"
+until curl -k -L --output /dev/null --silent --fail http://localhost:8080/cas/login; do
+    echo -n '.'
+    sleep 1
+done
+echo "CAS Ready"
+
 
 #--cas.authn.attribute-repository.default-attributes-to-release=uid,username,email --cas.authn.oidc.claims=username,email
