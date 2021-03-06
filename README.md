@@ -44,9 +44,6 @@ and run the getting started example via `yarn develop`.
 SSL validation is turned off so OIDC callback to CAS will work with self-signed certificate.
 
 # Manual steps
-- Note: These steps could probably be automated fairly easily with curl for registering the user and pre-positioning a 
-  pre-configured bootstrap.js file on first strapi startup so that the CAS provider is enabled and configured on startup.
-
 After strapi starts up, browse to `http://localhost:1337` and create an admin account and login to the admin console.
 
 1. Click on `Settings -> Providers -> CAS`
