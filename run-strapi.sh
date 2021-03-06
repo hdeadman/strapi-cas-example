@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+set -m
 FORK=${1:-hdeadman}
 REPO=https://github.com/$FORK/strapi.git
 BRANCH=${2:-cas2}
@@ -21,12 +22,14 @@ cd examples/getstarted
 # run without SSL verification in order to call CAS via https
 NODE_TLS_REJECT_UNAUTHORIZED=0 yarn develop &
 pid=$!
-
-echo "Waiting for Strapi start up"
-until curl -k -L --output /dev/null --silent --fail http://localhost:1337; do
+if [[ "$CI" != "true" ]]; then
+  fg 1
+else
+  echo "Waiting for Strapi start up"
+  until curl -k -L --output /dev/null --silent --fail http://localhost:1337; do
     echo -n '.'
     sleep 1
-done
-echo "Strapi Ready - PID: $pid"
-
+  done
+  echo "Strapi Ready - PID: $pid"
+fi
 

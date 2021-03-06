@@ -71,3 +71,23 @@ login to CAS, and see the JWT token that an app would send to strapi on subseque
 5. See JWT 
 
 6. Use JWT as the value for the `Authorization` HTTP header on subsequent requests to strapi that require authentication. 
+
+
+# Optional steps
+CAS returns attributes in a map called attributes by default. It can be run in "FLAT" mode using an option. 
+
+Here is what the attributes in the response body look like by default:
+```
+{"sub":"casuser","service":"http://localhost:1337/connect/cas/callback","auth_time":1615051264,"attributes":{"email":"casuser@apereo.org"},"id":"casuser","client_id":"strapi"}
+```
+
+Here is what the attributes look like in FLAT mode, which you can enable in this example by running `./run-cas.sh FLAT`
+```
+{"email":"casuser@apereo.org","sub":"casuser","service":"http://localhost:1337/connect/cas/callback","auth_time":1615052215,"id":"casuser","client_id":"strapi"}
+
+```
+To find out what your attributes look like in Strapi, you can add:
+```
+console.log('CAS Response Body: ' + JSON.stringify(body));
+```
+to `./strapi/packages/strapi-plugin-users-permissions/services/Providers.js` where the CAS body is parsed for the username and email. That Providers.js file can also exist as an extension in your strapi application: `extensions/users-permissions/services/Providers.js`. You shouldn't have to customize that in Strapi b/c CAS lets you control what attributes are returned to Strapi.

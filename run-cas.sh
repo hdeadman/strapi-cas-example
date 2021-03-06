@@ -5,6 +5,7 @@ export MSYS2_ARG_CONV_EXCL="*"
 export MSYS_NO_PATHCONV=1
 
 set -e
+set -m
 
 docker stop cas-initializr || true
 if [[ ! -d cas-server ]]; then
@@ -31,23 +32,35 @@ echo "Building CAS Server"
 ./gradlew clean build
 
 if [[ "$1" == "FLAT" ]]; then 
-  FLAG_ARG=--cas.authn.oauth.user-profile-view-type=FLAT
+  FLAT_ARG=--cas.authn.oauth.user-profile-view-type=FLAT
+  echo "Using extra argument: $FLAT_ARG"
   shift
 else
   FLAT_ARG=
 fi
 
-# Run CAS server
+# Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
-java -jar build/libs/cas.war --server.ssl.key-store=thekeystore --cas.standalone.configuration-directory=./config --cas.service-registry.json.location=file:./services --cas.server.name=https://localhost:8443 --cas.server.prefix='${cas.server.name}/cas' --cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org --cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks $FLAT_ARG &
+java -jar build/libs/cas.war \
+	--server.ssl.key-store=thekeystore \
+	--cas.standalone.configuration-directory=./config \
+	--cas.service-registry.json.location=file:./services \
+	--cas.server.name=https://localhost:8443 \
+       	--cas.server.prefix='${cas.server.name}/cas' \
+       	--cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
+	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks $FLAT_ARG
+echo $cmd
+eval $cmd &
 pid=$!
-
-echo "Waiting for CAS to start up"
-until curl -k -L --output /dev/null --silent --fail https://localhost:8443/cas/login; do
+if [[ "$CI" != "true" ]]; then
+  fg 1
+else
+  echo "Waiting for CAS to start up"
+  until curl -k -L --output /dev/null --silent --fail https://localhost:8443/cas/login; do
     echo -n '.'
     sleep 1
-done
-echo "CAS Ready - PID: $pid"
-
+  done
+  echo "CAS Ready - PID: $pid"
+fi
 
 #--cas.authn.attribute-repository.default-attributes-to-release=uid,username,email --cas.authn.oidc.claims=username,email
