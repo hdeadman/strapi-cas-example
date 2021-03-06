@@ -43,7 +43,7 @@ java -jar build/libs/cas.war --server.ssl.key-store=thekeystore --cas.standalone
 pid=$!
 
 echo "Waiting for CAS to start up"
-until curl -k -L --output /dev/null --silent --fail http://localhost:8080/cas/login; do
+until curl -k -L --output /dev/null --silent --fail https://localhost:8443/cas/login; do
     echo -n '.'
     sleep 1
 done
