@@ -1,0 +1,13 @@
+{
+  "@class": "org.apereo.cas.services.OidcRegisteredService",
+  "clientId": "strapi",
+  "clientSecret": "strapisecret",
+  "bypassApprovalPrompt": true,
+  "serviceId": "http://localhost:1337/.*",
+  "name": "Strapi",
+  "id": 1,
+  "description": "Sample Service",
+  "evaluationOrder": 1,
+  "scopes" : [ "java.util.HashSet", [ "openid", "profile", "email" ] ],
+  "supportedResponseTypes": [ "java.util.HashSet", [ "code", "token", "id_token token", "id_token" ] ]
+}
