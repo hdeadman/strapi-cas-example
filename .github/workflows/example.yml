@@ -29,7 +29,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - run-cas.sh &
-      - sleep 180
-      - run-starpi.sh &
-      - sleep 180
+      - 'run-cas.sh &'
+      - 'sleep 180'
+      - 'run-starpi.sh &'
+      - 'sleep 180'
