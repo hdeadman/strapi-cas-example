@@ -10,6 +10,8 @@ Git - to clone strapi project
 Curl - to access CAS Intializr and generate CAS Overlay
 Bash - tested on Windows with msys2, also on Ubuntu via Github Actions
 
+If you using msys2 on windows, you have to add all of those tools to your path.
+
 
 # Run CAS
 ```
@@ -24,6 +26,11 @@ Normally CAS would be connected to LDAP or some other user repository but this i
 
 CAS will be accessible after startup at `https://localhost:8443/cas` 
 
+CAS has lots of options for configuring attributes from lots of different sources and they can be specific to individual apps
+(called "services" in CAS). One of those sources could be a groovy script that returned attributes so a CAS admin should be 
+able to control which attribute names are passed to Strapi. 
+
+By default CAS returns attributes in an "attributes" map in the JSON. 
 
 # Run Strapi
 ```
@@ -35,6 +42,9 @@ SSL validation is turned off so OIDC callback to CAS will work with self-signed 
 
 
 # Manual steps
+- Note: These steps could probably be automated fairly easily with curl for registering the user and pre-positioning a 
+  pre-configured bootstrap.js file on first strapi startup so that the CAS provider is enabled and configured on startup.
+
 After strapi starts up, browse to `http://localhost:1337` and create an admin account and login to the admin console.
 
 1. Click on `Settings -> Providers -> CAS`
@@ -45,9 +55,10 @@ After strapi starts up, browse to `http://localhost:1337` and create an admin ac
 - Host URI(subdomain): `localhost:8443/cas`
 3. Leave redirect URLs alone and click Save.
 
-Normally you would access a CAS authenticated app and login so that when you hit strapi via XHR you would already be logged 
-in and CAS SSO would log you in to strapi. In this example we just hit the `http://localhost:1337/connect/cas` endpoint in strapi, 
-login to CAS and see the JWT token that an app would send to strapi on subsequent requests as an HTTP header.
+Normally you would access a CAS authenticated app and login so that when you hit strapi's login endpoint via XHR you 
+would already be logged in and CAS SSO would log you in to strapi. 
+In this example we just hit the `http://localhost:1337/connect/cas` endpoint in strapi, 
+login to CAS, and see the JWT token that an app would send to strapi on subsequent requests as an HTTP `Authorization` header.
 
 1. Browse to http://localhost:1337/connect/cas
 
