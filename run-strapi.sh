@@ -3,7 +3,7 @@ set -e
 set -m
 FORK=${1:-hdeadman}
 REPO=https://github.com/$FORK/strapi.git
-BRANCH=${2:-cas2}
+BRANCH=${2:-cas}
 STRAPI_FOLDER=strapi
 
 if [[ ! -d $STRAPI_FOLDER ]] ; then
