@@ -47,7 +47,7 @@ until curl -k -L --output /dev/null --silent --fail https://localhost:8443/cas/l
     echo -n '.'
     sleep 1
 done
-echo "CAS Ready"
+echo "CAS Ready - PID: $pid"
 
 
 #--cas.authn.attribute-repository.default-attributes-to-release=uid,username,email --cas.authn.oidc.claims=username,email
