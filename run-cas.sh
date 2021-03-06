@@ -48,9 +48,7 @@ java -jar build/libs/cas.war \
 	--cas.server.name=https://localhost:8443 \
        	--cas.server.prefix='${cas.server.name}/cas' \
        	--cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
-	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks $FLAT_ARG
-echo $cmd
-eval $cmd &
+	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks $FLAT_ARG &
 pid=$!
 if [[ "$CI" != "true" ]]; then
   fg 1

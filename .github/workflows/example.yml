@@ -39,4 +39,5 @@ jobs:
         shell: "bash" 
         run: |
           ./run-cas.sh
-          ./run-strapi.sh 
+          ./run-strapi.sh
+          ./register_strapi_admin.sh | jq .
