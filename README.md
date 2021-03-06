@@ -2,15 +2,16 @@
 Demonstrate login to Strapi via CAS
 
 ### Pre-requisites for running locally
-Docker - to run CAS Intializr
-Java 11 JDK - to build and run CAS overlay (Gradle will bootstrap itself)
-Node - to run Strapi
-Yarn - to build Strapi
-Git - to clone strapi project
-Curl - to access CAS Intializr and generate CAS Overlay
-Bash - tested on Windows with msys2, also on Ubuntu via Github Actions
+- Docker - to run CAS Intializr
+- Java 11 JDK - to build and run CAS overlay (Gradle will bootstrap itself)
+- Node - to run Strapi
+- Yarn - to build Strapi
+- Git - to clone strapi project
+- Curl - to access CAS Intializr and generate CAS Overlay
+- Bash - tested on Windows with msys2, also on Ubuntu via Github Actions
 
-If you using msys2 on windows, you have to add all of those tools to your path.
+If using msys2 on windows, you have to add all of those tools to your path. 
+Use the `./check_prereqs.sh` script to see if everything is available.
 
 
 # Run CAS
@@ -39,7 +40,6 @@ By default CAS returns attributes in an "attributes" map in the JSON.
 This will clone strapi repository containing the CAS intregation code, build strapi via `yarn setup`, 
 and run the getting started example via `yarn develop`. 
 SSL validation is turned off so OIDC callback to CAS will work with self-signed certificate.
-
 
 # Manual steps
 - Note: These steps could probably be automated fairly easily with curl for registering the user and pre-positioning a 
