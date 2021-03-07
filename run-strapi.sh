@@ -1,18 +1,10 @@
 #!/usr/bin/env bash
 set -e
 set -m
-FORK=${1:-hdeadman}
-REPO=https://github.com/$FORK/strapi.git
-BRANCH=${2:-cas}
+
 STRAPI_FOLDER=strapi
 
-if [[ ! -d $STRAPI_FOLDER ]] ; then
-  git clone $REPO --depth 1 --branch $BRANCH $STRAPI_FOLDER
-else
-  pushd $STRAPI_FOLDER 
-  git pull origin $BRANCH 
-  popd
-fi
+./clone_strapi.sh hdeadman cas $STRAPI_FOLDER
 
 # copy server.js with URL set
 cp strapi-custom/server.js $STRAPI_FOLDER/examples/getstarted/config/server.js

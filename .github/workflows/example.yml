@@ -42,6 +42,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: "Clone Strapi"
+        shell: "bash" 
+        run: ./clone-strapi.sh
       - uses: actions/cache@v2
         with:
           path: |
@@ -53,20 +56,18 @@ jobs:
             ${{ runner.os }}-node-
       - name: "Start CAS"
         shell: "bash" 
-        run: |
-          ./run-cas.sh
+        run: ./run-cas.sh
       - name: "Start Strapi"
         shell: "bash" 
-        run: |
-          ./run-strapi.sh
+        run: ./run-strapi.sh
       - name: "Register Admin"
         shell: "bash" 
-        run: |
-          ./register_strapi_admin.sh | jq .
+        run: ./register_strapi_admin.sh | jq .
       - name: "Run puppeteer test"
         shell: "bash" 
         run: |
-          cd puppeteer && ./run.sh
+          cd puppeteer
+          ./run.sh
           grep \"jwt\" testoutput.log | tail -1 | jq .
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
