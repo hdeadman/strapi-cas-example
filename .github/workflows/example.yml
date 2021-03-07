@@ -51,11 +51,17 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: "Start CAS and Strapi"
+      - name: "Start CAS"
         shell: "bash" 
         run: |
           ./run-cas.sh
+      - name: "Start Strapi"
+        shell: "bash" 
+        run: |
           ./run-strapi.sh
+      - name: "Register Admin"
+        shell: "bash" 
+        run: |
           ./register_strapi_admin.sh | jq .
       - name: "Run puppeteer test"
         shell: "bash" 
@@ -65,12 +71,22 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: cas-server
-          path: ./cas-server/**
+          path: |
+            ./cas-server/**
+            !./cas-server/.gradle
+            !./cas-server/build/overlays
+            !./cas-server/build/generated
+            !./cas-server/build/classes
+            !./cas-server/build/resources
+            !./cas-server/build/tomcat
+            !./cas-server/build/tmp
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: strapi-example
-          path: ./strapi/examples/getstarted/**
+          path: |
+            ./strapi/examples/getstarted/**
+            !./strapi/examples/getstarted/node_modules
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
