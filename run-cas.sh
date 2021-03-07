@@ -32,12 +32,13 @@ echo "Building CAS Server"
 ./gradlew clean build
 
 if [[ "$1" == "FLAT" ]]; then 
-  FLAT_ARG=--cas.authn.oauth.user-profile-view-type=FLAT
-  echo "Using extra argument: $FLAT_ARG"
+  ATTRIBUTE_STYLE=FLAT
   shift
 else
-  FLAT_ARG=
+  # default in CAS is NESTED
+  ATTRIBUTE_STYLE=NESTED
 fi
+echo "Using attribute style $ATTRIBUTE_STYLE"
 
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
@@ -48,7 +49,8 @@ java -jar build/libs/cas.war \
 	--cas.server.name=https://localhost:8443 \
        	--cas.server.prefix='${cas.server.name}/cas' \
        	--cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
-	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks $FLAT_ARG &
+	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks \
+  --cas.authn.oauth.user-profile-view-type=$ATTRIBUTE_STYLE &
 pid=$!
 if [[ "$CI" != "true" ]]; then
   fg 1
