@@ -13,7 +13,10 @@ else
 fi
 
 # copy server.js with URL set
-cp server.js $STRAPI_FOLDER/examples/getstarted/config/server.js
+cp strapi-custom/server.js $STRAPI_FOLDER/examples/getstarted/config/server.js
+# copy SSO provider bootstrap.js with CAS defaults changed for this test deployment
+mkdir -p $STRAPI_FOLDER/examples/getstarted/extensions/users-permissions/config/functions
+cp strapi-custom/bootstrap.js $STRAPI_FOLDER/examples/getstarted/extensions/users-permissions/config/functions
 
 cd $STRAPI_FOLDER
 yarn setup
