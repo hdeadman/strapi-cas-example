@@ -2,3 +2,4 @@ cas-server
 strapi
 **/node_modules/**
 puppeteer/*.png
+puppeteer/*.log

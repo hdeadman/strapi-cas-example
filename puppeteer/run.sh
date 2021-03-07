@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 npm install
-npm run casconnect
+npm run casconnect | tee -a testoutput.log

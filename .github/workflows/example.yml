@@ -42,6 +42,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - uses: actions/cache@v2
+        with:
+          path: |
+            strapi/node_modules
+            puppeteer/node_modules
+            strapi/examples/getstarted/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: "Start CAS and Strapi"
         shell: "bash" 
         run: |
@@ -62,3 +71,8 @@ jobs:
         with:
           name: strapi-example
           path: ./strapi/examples/getstarted/**
+      - uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          name: puppeteer-screenshots
+          path: ./puppeteer/*.png
