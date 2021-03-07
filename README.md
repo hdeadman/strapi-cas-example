@@ -43,11 +43,17 @@ This will clone strapi repository containing the CAS intregation code, build str
 and run the getting started example via `yarn develop`. 
 SSL validation is turned off so OIDC callback to CAS will work with self-signed certificate.
 
+The user-permissions bootstrap.js file is copied in from `strapi-custom/bootstrap.js` with the CAS 
+provider pre-enabled and configured for this example. 
+
 # Manual steps
-After strapi starts up, browse to `http://localhost:1337` and create an admin account and login to the admin console.
+After strapi starts up, browse to `http://localhost:1337` and create an admin account and login to the admin console. (alternatively, call `./register_strapi_admin.sh`)
+
+The following steps aren't necessarily because the boostrap.js config for user-permissions was copied in 
+to the example application with these settings already in place.
 
 1. Click on `Settings -> Providers -> CAS`
-2. and enter the following:
+2. Enter the following:
 - Enable: `On`
 - Client ID: `strapi`
 - Client Secret: `strapisecret`
@@ -71,11 +77,14 @@ login to CAS, and see the JWT token that an app would send to strapi on subseque
 
 6. Use JWT as the value for the `Authorization` HTTP header on subsequent requests to strapi that require authentication. 
 
+# Github Actions Workflow
+This project has a Github Actions workflow that runs these tests and uses a puppeteer script to test the
+authentication exchange.
 
 # Optional steps
 CAS returns attributes in a map called `attributes` by default. It can be run in `FLAT` mode using an option. 
 
-Here is what the attributes in the response body look like by default:
+Here is what the attributes in the response body look like by default (`NESTED`):
 ```
 {"sub":"casuser","service":"http://localhost:1337/connect/cas/callback","auth_time":1615051264,"attributes":{"email":"casuser@apereo.org"},"id":"casuser","client_id":"strapi"}
 ```
