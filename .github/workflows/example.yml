@@ -44,7 +44,7 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: "Clone Strapi"
         shell: "bash" 
-        run: ./clone-strapi.sh
+        run: ./clone_strapi.sh
       - uses: actions/cache@v2
         with:
           path: |
