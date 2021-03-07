@@ -54,16 +54,16 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: "Start CAS"
+      - name: "Start CAS Server"
         shell: "bash" 
         run: ./run-cas.sh
-      - name: "Start Strapi"
+      - name: "Start Strapi Server"
         shell: "bash" 
         run: ./run-strapi.sh
-      - name: "Register Admin"
+      - name: "Register Strapi Admin"
         shell: "bash" 
         run: ./register_strapi_admin.sh | jq .
-      - name: "Run puppeteer test"
+      - name: "Run puppeteer login test"
         shell: "bash" 
         run: |
           cd puppeteer
