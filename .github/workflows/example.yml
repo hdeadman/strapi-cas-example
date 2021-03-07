@@ -69,26 +69,21 @@ jobs:
           cd puppeteer
           ./run.sh
           grep \"jwt\" testoutput.log | tail -1 | jq .
+      - name: "Package Artifacts"
+        shell: "bash" 
+        run: |
+          tar --exclude='cas-server/.gradle' --exclude='cas-server/build/overlays' -zcvf  cas-server.tgz cas-server
+          tar --exclude='strapi/examples/getstarted/node_modules' --exclude='strapi/examples/getstarted/build' --exclude='strapi/examples/getstarted/.cache' -zcvf  strapi-example.tgz strapi/examples/getstarted
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: cas-server
-          path: |
-            ./cas-server/**
-            !./cas-server/.gradle
-            !./cas-server/build/overlays
-            !./cas-server/build/generated
-            !./cas-server/build/classes
-            !./cas-server/build/resources
-            !./cas-server/build/tomcat
-            !./cas-server/build/tmp
+          path: ./cas-server.tgz
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: strapi-example
-          path: |
-            ./strapi/examples/getstarted/**
-            !./strapi/examples/getstarted/node_modules
+          path: ./strapi-example.tgz
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
