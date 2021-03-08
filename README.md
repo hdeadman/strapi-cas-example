@@ -49,7 +49,7 @@ provider pre-enabled and configured for this example.
 # Manual steps
 After strapi starts up, browse to `http://localhost:1337` and create an admin account and login to the admin console. (alternatively, call `./register_strapi_admin.sh`)
 
-The following steps aren't necessarily because the boostrap.js config for user-permissions was copied in 
+The following steps aren't necessary because the boostrap.js config for user-permissions was copied in 
 to the example application with these settings already in place.
 
 1. Click on `Settings -> Providers -> CAS`
