@@ -70,8 +70,10 @@ jobs:
         shell: "bash" 
         run: |
           cd puppeteer
-          ./run.sh
+          ./run.sh casconnect
           grep \"jwt\" testoutput.log | tail -1 | jq .
+          ./run.sh casconnectldap
+          grep \"jwt\" testoutput.log | tail -1 | jq .          
       - name: "Package Artifacts"
         shell: "bash" 
         run: |

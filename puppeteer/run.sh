@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-
+script=${1:-casconnect}
 npm install
-npm run casconnect | tee -a testoutput.log
-npm run casconnectldap | tee -a testoutput.log
+npm run $script | tee -a testoutput.log
