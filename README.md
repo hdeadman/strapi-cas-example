@@ -23,17 +23,18 @@ It will then proceed to build the CAS application using gradle, generate an SSL 
 CAS will be running with a default in-memory dummy user repository with a single user with credentials: `casuser/Mellon`
 The CAS "stub" repository will return a hard-coded e-mail address. 
 
-Normally CAS would be connected to LDAP or some other user repository but this is just testing the OIDC exchange with Strapi
-and Strapi only needs a user with an email address.
+This example also runs a Samba server (via Docker) to simulate and Active Directory LDAP server and includes the CAS `ldap` module to support login with users created in the sameple directory. Run the `ldap/run-ad-server.sh` script to start the directory which
+will seed the directory with sample users and copy a trust store into the CAS server folder so CAS will trust the directory 
+when doing `starttls` to the directory. See the `run-ad-server.sh` script for test users.
 
 CAS will be accessible after startup at `https://localhost:8443/cas` 
 
 CAS has lots of options for configuring attributes from different sources and they can be specific to individual apps
 (called "services" in CAS). One of those sources could be a groovy script that returned attributes so a CAS admin should be 
-able to control which attribute names are passed to Strapi. 
+able to control which attribute names are passed to Strapi and what they are called.
 
-By default CAS returns attributes in an "attributes" map in the JSON but this `run-cas.sh` script can be run with `FLAT` as the first argument 
-and CAS will return the attributes as top-level JSON attributes. 
+By default CAS returns attributes in an "attributes" map in the JSON but this `run-cas.sh` script can be run with `FLAT` as the 
+first argument and CAS will return the attributes as top-level JSON attributes. 
 
 # Run Strapi
 ```

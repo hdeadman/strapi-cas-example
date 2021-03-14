@@ -1,17 +1,32 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
 
+before (async function () {
+    global.username = '';
+    global.password = '';
+  });
+
 (async () => {
+    for (var i = 0; i < process.argv.length; i++) {
+        var arg = process.argv[i];
+        if (arg.includes('username')) {
+            global.username = arg.split("=")[1];
+        }
+        if (arg.includes('password')) {
+            global.password = arg.split("=")[1];
+        }
+    }
+
     const browser = await puppeteer.launch({
         ignoreHTTPSErrors: true,
         headless: true
     });
     const page = await browser.newPage();
-    
+
     await page.goto("https://localhost:8443/cas/login");
     page.waitForNavigation()
-    await page.type('#username', 'casuser')
-    await page.type('#password', 'Mellon')
+    await page.type('#username', global.username)
+    await page.type('#password', global.password)
     await page.keyboard.press('Enter');
     
     await page.waitForNavigation();

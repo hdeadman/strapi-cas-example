@@ -15,7 +15,7 @@ if [[ ! -d cas-server ]]; then
   echo Waiting for CAS initializr container to start
   mkdir cas-server
   cd cas-server
-  curl http://localhost:9080/starter.tgz -d dependencies=oidc,jsonsvc | tar -xzvf -
+  curl http://localhost:9080/starter.tgz -d dependencies=oidc,ldap,jsonsvc | tar -xzvf -
 else
   cd cas-server
 fi
@@ -23,6 +23,8 @@ fi
 echo "Copying CAS service for strapi to JSON service registry folder"
 mkdir -p config services
 cp ../services/* services
+echo "Copying ldap config info config folder"
+cp ../ldap/application-ldap.properties config
 
 if [[ ! -f thekeystore ]] ; then
    echo "Create Server SSL keystore"
@@ -44,6 +46,7 @@ echo "Using attribute style $ATTRIBUTE_STYLE"
 echo "Running CAS Server"
 java -jar build/libs/cas.war \
 	--server.ssl.key-store=thekeystore \
+  --spring.profiles.active=standalone,ldap \
 	--cas.standalone.configuration-directory=./config \
 	--cas.service-registry.json.location=file:./services \
 	--cas.server.name=https://localhost:8443 \

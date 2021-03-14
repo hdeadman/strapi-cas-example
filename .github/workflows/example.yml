@@ -63,6 +63,9 @@ jobs:
       - name: "Register Strapi Admin"
         shell: "bash" 
         run: ./register_strapi_admin.sh | jq .
+      - name: "Start LDAP (Samba-AD) Server"
+        shell: "bash" 
+        run: cd ldap && ./run-ad-server.sh
       - name: "Run puppeteer login test"
         shell: "bash" 
         run: |
