@@ -105,22 +105,22 @@ echo Creating users for tests
 
 docker exec samba bash -c "samba-tool user setpassword --filter=samAccountName=Administrator --newpassword=$DOMAINPASS"
 
-docker exec samba bash -c "samba-tool user create admin $DEFAULT_TESTUSER_PASSWORD --given-name=Joe --surname=Admin --use-username-as-cn"
+docker exec samba bash -c "samba-tool user create admin $DEFAULT_TESTUSER_PASSWORD --given-name=Joe --surname=Admin --use-username-as-cn --mail-address=admin@${DOMAIN}"
 docker exec samba bash -c "samba-tool user setpassword --filter=cn=admin --newpassword=$DEFAULT_TESTUSER_PASSWORD"
 
-docker exec samba bash -c "samba-tool user create aburr $DEFAULT_TESTUSER_PASSWORD --given-name=Aaron --surname=Burr --use-username-as-cn"
+docker exec samba bash -c "samba-tool user create aburr $DEFAULT_TESTUSER_PASSWORD --given-name=Aaron --surname=Burr --use-username-as-cn --mail-address=aburr@${DOMAIN}"
 docker exec samba bash -c "samba-tool user setpassword --filter=samAccountName=aburr --newpassword=$DEFAULT_TESTUSER_PASSWORD"
 
-docker exec samba bash -c "samba-tool user create aham $DEFAULT_TESTUSER_PASSWORD --given-name=Alexander --surname=Hamilton --use-username-as-cn"
+docker exec samba bash -c "samba-tool user create aham $DEFAULT_TESTUSER_PASSWORD --given-name=Alexander --surname=Hamilton --use-username-as-cn --mail-address=aham@${DOMAIN}"
 docker exec samba bash -c "samba-tool user setpassword --filter=samAccountName=aham --newpassword=$DEFAULT_TESTUSER_PASSWORD"
 
-docker exec samba bash -c "samba-tool user create expireduser $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn"
+docker exec samba bash -c "samba-tool user create expireduser $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn --mail-address=expireduser@${DOMAIN}"
 docker exec samba bash -c "samba-tool user setpassword --filter=cn=expireduser --newpassword=$DEFAULT_TESTUSER_PASSWORD"
 
-docker exec samba bash -c "samba-tool user create disableduser $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn"
+docker exec samba bash -c "samba-tool user create disableduser $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn --mail-address=disableduser@${DOMAIN}"
 docker exec samba bash -c "samba-tool user setpassword --filter=cn=disableduser --newpassword=$DEFAULT_TESTUSER_PASSWORD"
 
-docker exec samba bash -c "samba-tool user create changepassword $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn --mail-address=changepassword@example.org --telephone-number=1234567890 --department='DepartmentQuestion' --company='CompanyAnswer' --description='DescriptionQuestion' --physical-delivery-office=PhysicalDeliveryOfficeAnswer "
+docker exec samba bash -c "samba-tool user create changepassword $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn --mail-address=changepassword@${DOMAIN} --telephone-number=1234567890 --department='DepartmentQuestion' --company='CompanyAnswer' --description='DescriptionQuestion' --physical-delivery-office=PhysicalDeliveryOfficeAnswer "
 docker exec samba bash -c "samba-tool user setpassword --filter=cn=changepassword --newpassword=$DEFAULT_TESTUSER_PASSWORD"
 
 docker exec samba bash -c "samba-tool user create changepasswordnoreset $DEFAULT_TESTUSER_PASSWORD --use-username-as-cn"

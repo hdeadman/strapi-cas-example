@@ -1,12 +1,9 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
 
-before (async function () {
-    global.username = '';
-    global.password = '';
-  });
-
 (async () => {
+    global.username = 'casuser';
+    global.password = 'Mellon';    
     for (var i = 0; i < process.argv.length; i++) {
         var arg = process.argv[i];
         if (arg.includes('username')) {
