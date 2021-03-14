@@ -22,9 +22,9 @@ fi
 
 echo "Copying CAS service for strapi to JSON service registry folder"
 mkdir -p config services
-cp ../services/* services
+cp -f ../services/* services
 echo "Copying ldap config info config folder"
-cp ../ldap/application-ldap.properties config
+cp -f ../ldap/application-ldap.properties config
 
 if [[ ! -f thekeystore ]] ; then
    echo "Create Server SSL keystore"
@@ -50,9 +50,12 @@ java -jar build/libs/cas.war \
 	--cas.standalone.configuration-directory=./config \
 	--cas.service-registry.json.location=file:./services \
 	--cas.server.name=https://localhost:8443 \
-       	--cas.server.prefix='${cas.server.name}/cas' \
-       	--cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
+  --cas.server.prefix='${cas.server.name}/cas' \
+  --cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
+  --cas.authn.attribute-repository.stub.id=STUB \
 	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks \
+  --logging.level.org.apereo.cas=WARN \
+  --logging.level.org.apereo.services.persondir=WARN \
   --cas.authn.oauth.user-profile-view-type=$ATTRIBUTE_STYLE &
 pid=$!
 if [[ "$CI" != "true" ]]; then
@@ -65,5 +68,3 @@ else
   done
   echo "CAS Ready - PID: $pid"
 fi
-
-#--cas.authn.attribute-repository.default-attributes-to-release=uid,username,email --cas.authn.oidc.claims=username,email

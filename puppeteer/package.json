@@ -8,8 +8,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "casconnect": "node login_to_strapi_via_cas.js --username=casuser --password=Mellon",
-    "casconnectldap": "node login_to_strapi_via_cas.js --username=aham --password=P@ssw0rd"
+    "casconnect": "node --unhandled-rejections=strict login_to_strapi_via_cas.js --username=casuser --password=Mellon",
+    "casconnectldap": "node --unhandled-rejections=strict login_to_strapi_via_cas.js --username=aham --password=P@ssw0rd"
   },
   "author": "",
   "license": "ISC"
