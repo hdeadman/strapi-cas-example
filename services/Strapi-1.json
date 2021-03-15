@@ -8,7 +8,7 @@
   "id": 1,
   "description": "Sample Service",
   "evaluationOrder": 1,
-  "scopes" : [ "java.util.HashSet", [ "openid", "profile", "email" ] ],
+  "scopes" : [ "java.util.HashSet", [ "profile", "email" ] ],
   "supportedResponseTypes": [ "java.util.HashSet", [ "code", "token", "id_token token", "id_token" ] ],
   "supportedGrantTypes": [ "java.util.HashSet", [ "client_credentials", "refresh_token", "authorization_code" ] ],
   "attributeReleasePolicy" : {
