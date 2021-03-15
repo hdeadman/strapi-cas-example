@@ -21,7 +21,7 @@ else
 fi
 
 echo "Copying CAS service for strapi to JSON service registry folder"
-mkdir -p config services
+mkdir -p config services logs
 cp -f ../services/* services
 echo "Copying ldap config info config folder"
 cp -f ../ldap/application-ldap.properties config
@@ -44,7 +44,7 @@ echo "Using attribute style $ATTRIBUTE_STYLE"
 
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
-java -jar build/libs/cas.war \
+java -DbaseDir=./logs -jar build/libs/cas.war \
 	--server.ssl.key-store=thekeystore \
   --spring.profiles.active=standalone,ldap \
 	--cas.standalone.configuration-directory=./config \
