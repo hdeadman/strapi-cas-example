@@ -41,6 +41,6 @@ const assert = require('assert');
     let jwt = await page.evaluate(element => element.textContent.trim(), element);
     console.log(jwt);
     assert(jwt.includes("jwt"));
-    await page.screenshot({path: 'jwt-token.png'});
+    await page.screenshot({path: global.username + '-jwt-token.png'});
     await browser.close();
 })();
