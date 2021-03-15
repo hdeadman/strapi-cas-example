@@ -95,3 +95,8 @@ jobs:
         with:
           name: puppeteer-screenshots
           path: ./puppeteer/*.png
+      - uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          name: cas-logs
+          path: ./cas_logs.tgz
