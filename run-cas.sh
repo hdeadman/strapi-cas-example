@@ -54,6 +54,7 @@ java -jar build/libs/cas.war \
   --cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
   --cas.authn.attribute-repository.stub.id=STUB \
 	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks \
+  --logging-config=file:./etc/cas/config/log4j2.xml \
   --logging.level.org.apereo.cas=DEBUG \
   --logging.level.org.apereo.services.persondir=DEBUG \
   --cas.authn.oauth.user-profile-view-type=$ATTRIBUTE_STYLE &
