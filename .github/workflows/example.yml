@@ -79,7 +79,6 @@ jobs:
         run: |
           tar --exclude='cas-server/.gradle' --exclude='cas-server/build/overlays' -zcvf  cas-server.tgz cas-server
           tar --exclude='strapi/examples/getstarted/node_modules' --exclude='strapi/examples/getstarted/build' --exclude='strapi/examples/getstarted/.cache' -zcvf  strapi-example.tgz strapi/examples/getstarted
-          tar -zcvf cas_logs.tgz ./cas-server/logs/cas*
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
@@ -99,4 +98,4 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: cas-logs
-          path: ./cas_logs.tgz
+          path: ./cas-server/logs/cas*.log
