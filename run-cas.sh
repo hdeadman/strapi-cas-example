@@ -43,7 +43,7 @@ fi
 echo "Using attribute style $ATTRIBUTE_STYLE"
 
 # make logs folder under cas-server
-sed -i 's/\/var\/log/.\/logs/g' cas-server/etc/cas/config/log4j2.xml
+sed -i 's/\/var\/log/.\/logs/g' ./etc/cas/config/log4j2.xml
 
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
