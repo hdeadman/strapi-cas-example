@@ -1,5 +1,12 @@
 # strapi-cas-example
-Demonstrate login to Strapi via CAS
+Demonstrate login to Strapi via CAS - 
+- Generate CAS Overlay using CAS Intializr -
+- Start CAS server from fresh overlay, copy in Strapi service definition.
+- Start LDAP server (Samba AD) in Docker container for CAS to authenticate against (dummy user auth also available)
+- Start a Strapi application with the user-permissions plugin CAS provider pre-configured in bootstrap.js
+- Register strapi admin via curl
+- Use Puppeteer script to login to CAS and then hit the Strapi CAS authentication URL to obtain a JWT. 
+
 
 ### Pre-requisites for running locally
 - Docker - to run CAS Intializr
