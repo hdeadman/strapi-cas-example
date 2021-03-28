@@ -9,28 +9,28 @@ Demonstrate login to Strapi via CAS -
 
 
 ### Pre-requisites for running locally
+- Docker - to run CAS Intializr
 - Java 11 JDK - to build and run CAS overlay (Gradle will bootstrap itself)
 - Node - to run Strapi
 - Yarn - to build Strapi
 - Git - to clone strapi project
 - Curl - to access CAS Intializr and generate CAS Overlay
 - Bash - tested on Windows with msys2, also on Ubuntu via Github Actions
-- Docker - to run LDAP Server (optional)
 
 If using msys2 on windows, you have to add all of those tools to your path. 
 Use the `./check_prereqs.sh` script to see if everything is available.
+
 
 # Run CAS
 ```
 ./run-cas.sh
 ```
-This uses the CAS Intializr to create a CAS Overlay project with support for OIDC. 
-It then builds the CAS application using gradle, generates an SSL certificate for the CAS server, and runs the CAS server.
+This will run the CAS Intializr locally which will be used create a CAS Overlay project with support for OIDC. 
+It will then proceed to build the CAS application using gradle, generate an SSL certificate for the CAS server, and run the CAS server.
 CAS will be running with a default in-memory dummy user repository with a single user with credentials: `casuser/Mellon`
 The CAS "stub" repository will return a hard-coded e-mail address. 
 
-This example also runs a Samba server (via Docker) to simulate and Active Directory LDAP server and includes the 
-CAS `ldap` module to support login with users created in the sameple directory. Run the `ldap/run-ad-server.sh` script to start the directory which
+This example also runs a Samba server (via Docker) to simulate and Active Directory LDAP server and includes the CAS `ldap` module to support login with users created in the sameple directory. Run the `ldap/run-ad-server.sh` script to start the directory which
 will seed the directory with sample users and copy a trust store into the CAS server folder so CAS will trust the directory 
 when doing `starttls` to the directory. See the `run-ad-server.sh` script for test users.
 
