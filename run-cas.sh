@@ -11,7 +11,7 @@ set -m
 if [[ ! -d cas-server ]]; then
   mkdir cas-server
   cd cas-server
-  curl https://casinit.herokuapp.com/starter.tgz -d "dependencies=oidc,ldap,jsonsvc" | tar  -xzvf -
+  curl https://casinit.herokuapp.com/starter.tgz -d "dependencies=oidc,ldap,jsonsvc&casVersion=6.3.3" | tar  -xzvf -
 else
   cd cas-server
 fi
@@ -43,7 +43,7 @@ sed -i 's/\/var\/log/.\/logs/g' ./etc/cas/config/log4j2.xml
 
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
-java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/cas.war \
+java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.war \
 	--server.ssl.key-store=thekeystore \
   --spring.profiles.active=standalone,ldap \
 	--cas.standalone.configuration-directory=./config \
