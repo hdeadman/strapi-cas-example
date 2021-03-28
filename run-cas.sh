@@ -4,18 +4,17 @@
 export MSYS2_ARG_CONV_EXCL="*"
 export MSYS_NO_PATHCONV=1
 
+CAS_VERSION=6.3.3
+BOOT_VERSION=2.3.7.RELEASE
+
 set -e
 set -m
 
-docker stop cas-initializr || true
+# use heroku deployed cas-initializr to in
 if [[ ! -d cas-server ]]; then
-  echo "Running CAS Intializr to generate CAS Overlay"
-  docker run -d --name cas-initializr -it --rm -p9080:8080 apereo/cas-initializr:6.3.0 
-  sleep 20
-  echo Waiting for CAS initializr container to start
   mkdir cas-server
   cd cas-server
-  curl http://localhost:9080/starter.tgz -d dependencies=oidc,ldap,jsonsvc | tar -xzvf -
+  curl https://casinit.herokuapp.com/starter.tgz -d "dependencies=oidc,ldap,jsonsvc&casVersion=${CAS_VERSION}&bootVersion=${BOOT_VERSION}" | tar  -xzvf -
 else
   cd cas-server
 fi
@@ -47,7 +46,7 @@ sed -i 's/\/var\/log/.\/logs/g' ./etc/cas/config/log4j2.xml
 
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
-java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/cas.war \
+java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.war \
 	--server.ssl.key-store=thekeystore \
   --spring.profiles.active=standalone,ldap \
 	--cas.standalone.configuration-directory=./config \
