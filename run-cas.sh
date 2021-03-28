@@ -7,15 +7,11 @@ export MSYS_NO_PATHCONV=1
 set -e
 set -m
 
-docker stop cas-initializr || true
+# use heroku deployed cas-initializr to in
 if [[ ! -d cas-server ]]; then
-  echo "Running CAS Intializr to generate CAS Overlay"
-  docker run -d --name cas-initializr -it --rm -p9080:8080 apereo/cas-initializr:6.3.0 
-  sleep 20
-  echo Waiting for CAS initializr container to start
   mkdir cas-server
   cd cas-server
-  curl http://localhost:9080/starter.tgz -d dependencies=oidc,ldap,jsonsvc | tar -xzvf -
+  curl https://casinit.herokuapp.com/starter.tgz -d "dependencies=oidc,ldap,jsonsvc" | tar  -xzvf -
 else
   cd cas-server
 fi
