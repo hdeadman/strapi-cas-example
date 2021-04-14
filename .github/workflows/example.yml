@@ -79,22 +79,26 @@ jobs:
         run: |
           tar --exclude='cas-server/.gradle' --exclude='cas-server/build/overlays' -zcvf  cas-server.tgz cas-server
           tar --exclude='strapi/examples/getstarted/node_modules' --exclude='strapi/examples/getstarted/build' --exclude='strapi/examples/getstarted/.cache' -zcvf  strapi-example.tgz strapi/examples/getstarted
-      - uses: actions/upload-artifact@v2
+      - name: "upload cas server folder"
+        uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: cas-server
           path: ./cas-server.tgz
-      - uses: actions/upload-artifact@v2
+      - name: "upload strapi app folder"
+        uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: strapi-example
           path: ./strapi-example.tgz
-      - uses: actions/upload-artifact@v2
+      - name: "upload puppeteer screenshots"
+        uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: puppeteer-screenshots
           path: ./puppeteer/*.png
-      - uses: actions/upload-artifact@v2
+      - name: "upload cas server logs"
+        uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: cas-logs
