@@ -17,7 +17,7 @@ Demonstrate login to Strapi via CAS -
 - Bash - tested on Windows with msys2, also on Ubuntu via Github Actions
 - Docker - to run LDAP Server (optional)
 
-If using msys2 on windows, you have to add all of those tools to your path. 
+If using msys2 on Windows, you have to add all of those tools to your path. 
 Use the `./check_prereqs.sh` script to see if everything is available.
 
 # Run CAS
