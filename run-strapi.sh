@@ -4,7 +4,7 @@ set -m
 
 STRAPI_FOLDER=strapi
 
-./clone_strapi.sh hdeadman cas $STRAPI_FOLDER
+./clone_strapi.sh strapi master $STRAPI_FOLDER
 
 # copy server.js with URL set
 cp strapi-custom/server.js $STRAPI_FOLDER/examples/getstarted/config/server.js
