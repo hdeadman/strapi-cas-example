@@ -3,3 +3,6 @@ strapi
 **/node_modules/**
 puppeteer/*.png
 puppeteer/*.log
+.idea/**
+act/**
+.actrc
