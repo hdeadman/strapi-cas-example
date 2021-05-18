@@ -82,14 +82,14 @@ jobs:
       - name: "Package Artifacts"
         shell: "bash" 
         run: |
-          tar --exclude='cas-server/.gradle' --exclude='cas-server/build/overlays' -zcvf  cas-server.tgz cas-server
+          tar --exclude='cas-server-${{ matrix.casVersions.casVersion }}/.gradle' --exclude='cas-server-${{ matrix.casVersions.casVersion }}/build/overlays' -zcvf  cas-server-${{ matrix.casVersions.casVersion }}.tgz cas-server-${{ matrix.casVersions.casVersion }}
           tar --exclude='strapi/examples/getstarted/node_modules' --exclude='strapi/examples/getstarted/build' --exclude='strapi/examples/getstarted/.cache' -zcvf  strapi-example.tgz strapi/examples/getstarted
       - name: "upload cas server folder"
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
-          name: cas-server
-          path: ./cas-server.tgz
+          name: cas-server-${{ matrix.casVersions.casVersion }}
+          path: ./cas-server-${{ matrix.casVersions.casVersion }}.tgz
       - name: "upload strapi app folder"
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -106,5 +106,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
-          name: cas-logs
-          path: ./cas-server/logs/cas*.log
+          name: cas-logs-${{ matrix.casVersions.casVersion }}
+          path: ./cas-server-${{ matrix.casVersions.casVersion }}/logs/cas*.log

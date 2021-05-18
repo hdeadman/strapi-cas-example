@@ -11,12 +11,12 @@ set -e
 set -m
 
 # use heroku deployed cas-initializr to in
-if [[ ! -d cas-server ]]; then
-  mkdir cas-server
-  cd cas-server
+if [[ ! -d cas-server-${CAS_VERSION} ]]; then
+  mkdir cas-server-${CAS_VERSION}
+  cd cas-server-${CAS_VERSION}
   curl https://casinit.herokuapp.com/starter.tgz -d "dependencies=oidc,ldap,jsonsvc&casVersion=${CAS_VERSION}&bootVersion=${BOOT_VERSION}" | tar  -xzvf -
 else
-  cd cas-server
+  cd cas-server-${CAS_VERSION}
 fi
 
 echo "Copying CAS service for strapi to JSON service registry folder"
