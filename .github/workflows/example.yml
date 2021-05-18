@@ -29,6 +29,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
+        casVersions:
+          - casVersion: 6.3.3
+            bootVersion: 2.3.7.RELEASE
+          - casVersion: 6.4.0-RC4
+            bootVersion: 2.4.5
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -56,7 +61,7 @@ jobs:
             ${{ runner.os }}-node-
       - name: "Start CAS Server"
         shell: "bash" 
-        run: ./run-cas.sh
+        run: ./run-cas.sh ${{ mastrix.casVersions.casVersion }} ${{ mastrix.casVersions.bootVersion }}
       - name: "Start Strapi Server"
         shell: "bash" 
         run: ./run-strapi.sh
