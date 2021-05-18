@@ -61,7 +61,7 @@ jobs:
             ${{ runner.os }}-node-
       - name: "Start CAS Server"
         shell: "bash" 
-        run: ./run-cas.sh ${{ mastrix.casVersions.casVersion }} ${{ mastrix.casVersions.bootVersion }}
+        run: ./run-cas.sh ${{ matrix.casVersions.casVersion }} ${{ matrix.casVersions.bootVersion }}
       - name: "Start Strapi Server"
         shell: "bash" 
         run: ./run-strapi.sh
