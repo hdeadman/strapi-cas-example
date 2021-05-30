@@ -46,6 +46,7 @@ sed -i 's/\/var\/log/.\/logs/g' ./etc/cas/config/log4j2.xml
 
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
+ls -l build/libs/
 java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.war \
 	--server.ssl.key-store=thekeystore \
   --spring.profiles.active=standalone,ldap \
@@ -61,10 +62,12 @@ java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.w
   --logging.level.org.apereo.services.persondir=DEBUG \
   --cas.authn.oauth.user-profile-view-type=$ATTRIBUTE_STYLE &
 pid=$!
+echo "PID is ${pid}"
 if [[ "$CI" != "true" ]]; then
   fg 1
 else
   echo "Waiting for CAS to start up"
+  ps -ef | grep $pid
   until curl -k -L --output /dev/null --silent --fail https://localhost:8443/cas/login; do
     echo -n '.'
     sleep 1
