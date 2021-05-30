@@ -1,5 +1,6 @@
-cas-server
+cas-server*
 strapi
+cas-initializr*
 **/node_modules/**
 puppeteer/*.png
 puppeteer/*.log
