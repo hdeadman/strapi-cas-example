@@ -16,9 +16,8 @@ if [[ ! -d cas-server-${CAS_VERSION} ]]; then
   #mkdir cas-server-${CAS_VERSION}
   #cd cas-server-${CAS_VERSION}
   #curl https://casinit.herokuapp.com/starter.tgz -d "dependencies=oidc,ldap,jsonsvc&casVersion=${CAS_VERSION}&bootVersion=${BOOT_VERSION}" | tar  -xzvf -
-else
-  cd cas-server-${CAS_VERSION}
 fi
+cd cas-server-${CAS_VERSION}
 
 echo "Copying CAS service for strapi to JSON service registry folder"
 mkdir -p config services logs

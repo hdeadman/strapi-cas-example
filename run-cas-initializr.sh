@@ -29,4 +29,4 @@ cd cas-server-${CAS_VERSION}
 curl http://localhost:8080/starter.tgz -d "dependencies=oidc,ldap,jsonsvc&casVersion=${CAS_VERSION}&bootVersion=${BOOT_VERSION}" | tar  -xzvf -
 
 curl -X POST http://localhost:8081/actuator/shutdown 2> /dev/null || true
-
+cd ..
