@@ -11,7 +11,7 @@ set -e
 set -m
 
 if [[ ! -d cas-server-${CAS_VERSION} ]]; then
-  ./ci/run-cas-initializr.sh $CAS_VERSION $BOOT_VERSION
+  ./run-cas-initializr.sh $CAS_VERSION $BOOT_VERSION
   # use heroku deployed cas-initializr to in
   #mkdir cas-server-${CAS_VERSION}
   #cd cas-server-${CAS_VERSION}
