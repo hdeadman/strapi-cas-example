@@ -72,7 +72,7 @@ jobs:
         run: ./register_strapi_admin.sh | jq .
       - name: "Start LDAP (Samba-AD) Server"
         shell: "bash" 
-        run: cd ldap && ./run-ad-server.sh
+        run: cd ldap && ./run-ad-server.sh ${{ matrix.casVersions.casVersion }}
       - name: "Run puppeteer login test"
         shell: "bash" 
         run: |

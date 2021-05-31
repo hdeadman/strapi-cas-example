@@ -15,13 +15,18 @@
 # The container also contains the ldap-utils package so users could be imported via LDIF files.
 
 # Passing true as first argument will reset directory config and data
-RESET=${1:-false}
+CAS_VERSION=$1
+if [[ -z "${CAS_VERSION}" ]]; then
+  echo "Pass CAS version as first argument so script knows where to put trust store."
+  exit -1
+fi
+RESET=${2:-false}
 
 EXTERNAL_LDAP_PORT=10389
 EXTERNAL_LDAPS_PORT=10636
 EXTERNAL_GC_PORT=13268  # Microsoft Global Catalog
 EXTERNAL_GCS_PORT=13269 # Microsoft Global Catalog with LDAP SSL
-TMPDIR=../cas-server/config # write to current directory
+TMPDIR=../cas-server-${CAS_VERSION}/config # write to current directory
 IMAGE_NAME=hdeadman/samba-domain
 DOMAINPASS=M3110nM3110n99
 DEFAULT_TESTUSER_PASSWORD=P@ssw0rd # must be "complex"
