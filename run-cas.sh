@@ -20,7 +20,8 @@ fi
 cd cas-server-${CAS_VERSION}
 
 echo "Copying CAS service for strapi to JSON service registry folder"
-mkdir -p config services logs
+# config/temp is for regression in spring boot 2.5.0, remove in 2.5.1
+mkdir -p config services logs config/temp
 cp -f ../services/* services
 echo "Copying ldap config info config folder"
 cp -f ../ldap/application-ldap.properties config
@@ -67,6 +68,8 @@ if [[ "$CI" != "true" ]]; then
   fg 1
 else
   echo "Waiting for CAS to start up"
+  sleep 5
+  echo "Checking for PID ${pid}"
   ps -ef | grep $pid
   until curl -k -L --output /dev/null --silent --fail https://localhost:8443/cas/login; do
     echo -n '.'
