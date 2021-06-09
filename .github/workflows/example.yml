@@ -48,7 +48,7 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            ${{ runner.os }}-gradle-${{ matrix.casVersions.casVersion }}
 #      - name: "Clone Strapi"
 #        shell: "bash"
 #        run: ./clone_strapi.sh
