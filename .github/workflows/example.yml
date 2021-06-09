@@ -49,18 +49,18 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: "Clone Strapi"
-        shell: "bash" 
-        run: ./clone_strapi.sh
-      - uses: actions/cache@v2
-        with:
-          path: |
-            strapi/node_modules
-            puppeteer/node_modules
-            strapi/examples/getstarted/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#      - name: "Clone Strapi"
+#        shell: "bash"
+#        run: ./clone_strapi.sh
+#      - uses: actions/cache@v2
+#        with:
+#          path: |
+#            strapi/node_modules
+#            puppeteer/node_modules
+#            strapi/examples/getstarted/node_modules
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-node-
       - name: "Start CAS Server"
         shell: "bash" 
         run: ./run-cas.sh ${{ matrix.casVersions.casVersion }} ${{ matrix.casVersions.bootVersion }}
