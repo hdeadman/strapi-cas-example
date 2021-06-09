@@ -85,7 +85,8 @@ jobs:
         shell: "bash" 
         run: |
           tar --exclude='cas-server-${{ matrix.casVersions.casVersion }}/.gradle' --exclude='cas-server-${{ matrix.casVersions.casVersion }}/build/overlays' -zcvf  cas-server-${{ matrix.casVersions.casVersion }}.tgz cas-server-${{ matrix.casVersions.casVersion }}
-          tar --exclude='strapi/examples/getstarted/node_modules' --exclude='strapi/examples/getstarted/build' --exclude='strapi/examples/getstarted/.cache' -zcvf  strapi-example.tgz strapi/examples/getstarted
+          tar --exclude='strapi/getstarted/node_modules' --exclude='strapi/getstarted/build' --exclude='strapi/getstarted/.cache' -zcvf  strapi-example.tgz strapi/getstarted
+          # tar --exclude='strapi/examples/getstarted/node_modules' --exclude='strapi/examples/getstarted/build' --exclude='strapi/examples/getstarted/.cache' -zcvf  strapi-example.tgz strapi/examples/getstarted
       - name: "upload cas server folder"
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'ubuntu-latest' }}
