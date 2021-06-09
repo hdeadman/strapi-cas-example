@@ -45,13 +45,12 @@ first argument and CAS will return the attributes as top-level JSON attributes.
 
 # Run Strapi
 ```
-./run-strapi.sh
+./run-strapi-app.sh
 ```
-This will clone strapi repository containing the CAS intregation code, build strapi via `yarn setup`, 
-and run the getting started example via `yarn develop`. 
-SSL validation is turned off so OIDC callback to CAS will work with self-signed certificate.
+This will create a strapi app and run it via `yarn develop`. 
+Script disables SSL validation so OIDC callback to CAS will work with self-signed certificate.
 
-The user-permissions bootstrap.js file is copied in from `strapi-custom/bootstrap.js` with the CAS 
+The script copies user-permissions bootstrap.js file from `strapi-custom/bootstrap.js` with the CAS 
 provider pre-enabled and configured for this example. 
 
 # Manual steps

@@ -24,15 +24,6 @@ module.exports = async () => {
       enabled: true,
       icon: 'envelope',
     },
-    cas: {
-      enabled: true,
-      icon: 'book',
-      key: 'strapi',
-      secret: 'strapisecret',
-      callback: `${strapi.config.server.url}/auth/cas/callback`,
-      scope: ['openid email'], // scopes should be space delimited
-      subdomain: 'localhost:8443/cas',
-    },
     discord: {
       enabled: false,
       icon: 'discord',
@@ -139,6 +130,15 @@ module.exports = async () => {
       callback: `${strapi.config.server.url}/auth/auth0/callback`,
       scope: ['openid', 'email', 'profile'],
     },
+    cas: {
+      enabled: true,
+      icon: 'book',
+      key: 'strapi',
+      secret: 'strapisecret',
+      callback: `${strapi.config.server.url}/auth/cas/callback`,
+      scope: ['openid email'], // scopes should be space delimited
+      subdomain: 'localhost:8443/cas',
+    },
   };
   const prevGrantConfig = (await pluginStore.get({ key: 'grant' })) || {};
   // store grant auth config to db
@@ -220,14 +220,15 @@ module.exports = async () => {
     strapi.reload.isWatching = false;
 
     await strapi.fs.writePluginFile(
-      'users-permissions',
-      'config/jwt.js',
-      `module.exports = {\n  jwtSecret: process.env.JWT_SECRET || '${jwtSecret}'\n};`
+        'users-permissions',
+        'config/jwt.js',
+        `module.exports = {\n  jwtSecret: process.env.JWT_SECRET || '${jwtSecret}'\n};`
     );
 
     strapi.reload.isWatching = true;
   }
 
-  const { actionProvider } = strapi.admin.services.permission;
-  actionProvider.register(usersPermissionsActions.actions);
+  await strapi.admin.services.permission.actionProvider.registerMany(
+      usersPermissionsActions.actions
+  );
 };
