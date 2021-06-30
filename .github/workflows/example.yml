@@ -35,7 +35,7 @@ jobs:
           - casVersion: 6.4.0-RC4
             bootVersion: 2.4.5
           - casVersion: 6.4.0-SNAPSHOT
-            bootVersion: 2.5.0
+            bootVersion: 2.5.2
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
