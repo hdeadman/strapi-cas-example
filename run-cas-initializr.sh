@@ -10,6 +10,7 @@ if [[ ! -d $INITIALIZR_DIR ]]; then
   cd $INITIALIZR_DIR
 else
   cd $INITIALIZR_DIR
+  git reset --hard
   git pull origin master
 fi
 
