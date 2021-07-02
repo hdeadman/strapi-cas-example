@@ -6,7 +6,7 @@ BOOT_VERSION=${2:-2.3.7.RELEASE}
 INITIALIZR_DIR=cas-initializr
 
 if [[ ! -d $INITIALIZR_DIR ]]; then
-  git clone https://github.com/apereo/cas-initializr.git $INITIALIZR_DIR
+  git clone https://github.com/apereo/cas-initializr.git $INITIALIZR_DIR --branch persondir
   cd $INITIALIZR_DIR
 else
   cd $INITIALIZR_DIR
