@@ -38,6 +38,12 @@ const assert = require('assert');
     
     await page.goto("http://localhost:1337/connect/cas", {waitUntil: 'networkidle2'});
     let element = await page.$('body pre');
+    if (element == null) {
+        let element = await page.$('body div main');
+        let errorpage = await page.evaluate(element => element.textContent.trim(), element);
+        console.log(errorpage)
+        assert(false);
+    }
     let jwt = await page.evaluate(element => element.textContent.trim(), element);
     console.log(jwt);
     assert(jwt.includes("jwt"));
