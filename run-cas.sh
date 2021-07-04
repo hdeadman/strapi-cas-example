@@ -6,6 +6,12 @@ export MSYS_NO_PATHCONV=1
 
 CAS_VERSION=${1:-6.3.3}
 BOOT_VERSION=${2:-2.3.7.RELEASE}
+if [[ $CAS_VERSION =~ ^6.3.*$ ]]; then
+  export PROFILES=standalone,ldap,ldap63
+else
+  export PROFILES=standalone,ldap,ldap64
+fi
+echo "Using CAS version $CAS_VERSION with profiles $PROFILES"
 
 set -e
 set -m
@@ -24,7 +30,7 @@ echo "Copying CAS service for strapi to JSON service registry folder"
 mkdir -p config services logs config/temp
 cp -f ../services/* services
 echo "Copying ldap config info config folder"
-cp -f ../ldap/application-ldap.properties config
+cp -f ../ldap/application-*.properties config
 
 if [[ ! -f thekeystore ]] ; then
    echo "Create Server SSL keystore"
@@ -50,7 +56,7 @@ echo "Running CAS Server"
 ls -l build/libs/
 java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.war \
 	--server.ssl.key-store=thekeystore \
-  --spring.profiles.active=standalone,ldap \
+  --spring.profiles.active=${PROFILES} \
 	--cas.standalone.configuration-directory=./config \
 	--cas.service-registry.json.location=file:./services \
 	--cas.server.name=https://localhost:8443 \
