@@ -54,13 +54,14 @@ sed -i 's/\/var\/log/.\/logs/g' ./etc/cas/config/log4j2.xml
 # Run CAS server using arguments for config rather than property files, make config folders and certs relative to project to avoid needing to use sudo
 echo "Running CAS Server"
 ls -l build/libs/
-java -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.war \
+java -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n -Dlog4j.configurationFile=./etc/cas/config/log4j2.xml -jar build/libs/app.war \
 	--server.ssl.key-store=thekeystore \
   --spring.profiles.active=${PROFILES} \
 	--cas.standalone.configuration-directory=./config \
 	--cas.service-registry.json.location=file:./services \
 	--cas.server.name=https://localhost:8443 \
   --cas.server.prefix='${cas.server.name}/cas' \
+  --cas.authn.oidc.core.issuer='${cas.server.name}/cas/oidc' \
   --cas.authn.attribute-repository.stub.attributes.email=casuser@apereo.org \
   --cas.authn.attribute-repository.stub.id=STUB \
 	--cas.authn.oidc.jwks.jwks-file=file:./config/keystore.jwks \

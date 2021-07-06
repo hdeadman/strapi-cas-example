@@ -19,7 +19,7 @@ const assert = require('assert');
         headless: true
     });
     const page = await browser.newPage();
-
+    await page.setDefaultNavigationTimeout(0); 
     await page.goto("https://localhost:8443/cas/login");
     page.waitForNavigation()
     await page.type('#username', global.username)

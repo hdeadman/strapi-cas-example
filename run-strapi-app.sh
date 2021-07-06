@@ -3,11 +3,13 @@ set -e
 set -m
 
 STRAPI_FOLDER=strapi
-mkdir -p $STRAPI_FOLDER
-cd $STRAPI_FOLDER
 PROJECT=getstarted
-yarn create strapi-app $PROJECT --quickstart --no-run
-cd ..
+if [[ ! -d $STRAPI_FOLDER/$PROJECT ]] ; then
+  mkdir -p $STRAPI_FOLDER
+  cd $STRAPI_FOLDER
+  yarn create strapi-app $PROJECT --quickstart --no-run
+  cd ..
+fi
 
 # copy server.js with URL set
 cp strapi-custom/server.js $STRAPI_FOLDER/$PROJECT/config/server.js
